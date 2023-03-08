@@ -15,12 +15,33 @@ html, body, #root {
   align-items: center;
 }
 
-.gradient {
-  background: rgb(0, 195, 255);
-  background: linear-gradient(220deg, #00c8ff50 10%, #b300ff50 90%) fixed;
-}
-
-.gradient-header {
+.gradient-bg {
   background: rgb(0, 195, 255);
   background: linear-gradient(220deg, #00c8ff 10%, #b300ff 90%) fixed;
+}
+
+button.gradient-bg:hover {
+  filter: brightness(1.5);
+}
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: linear-gradient(220deg, #00c8ff 10%, #b300ff 90%) fixed;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #00000090;
+}
+
+.personal-shadow {
+  box-shadow: 0 0 10px 5px #00000015;
+}
+
+@media(max-width: 1220px) {
+  .personal-container {
+    padding: 140px 0;
+  }
 }
