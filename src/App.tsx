@@ -1,18 +1,25 @@
-import { Card } from './components/List'
+import { Lists } from './components/Lists'
 import { NewItemScreen } from './components/NewItemScreen'
 import { useState } from 'react'
 
-interface EItem {
-  id: string,
-  content: string
+interface EList {
+  title: string;
+  items: {
+    id: string,
+    content: string
+  }[]
 }
 
-const App = () => {
-  const [todo, setTodo] = useState<EItem[]>([])
-  const [doing, setDoing] = useState<EItem[]>([])
-  const [done, setDone] = useState<EItem[]>([])
+const listsEx = [{ title: 'todo', items: [] }, { title: 'doing', items: [] }, { title: 'done', items: [] }]
 
+const App = () => {
+  const [lists, setLists] = useState<EList[]>(listsEx)
   const [newItemScreen, setNewItemScreen] = useState(false)
+
+  const todo = lists[0]
+  const doing = lists[1]
+  const done = lists[2]
+
 
   const idGenerator = () => {
     var randomString = '';
@@ -32,52 +39,55 @@ const App = () => {
   }
 
   const addNewItem = (value: string, title: string) => {
-    closeNewItemScreen()
     switch (title) {
       case 'todo':
-        return setTodo(prev => [...prev, { id: idGenerator(), content: value }])
+        todo.items.push({ id: idGenerator(), content: value })
+        break
       case 'doing':
-        return setDoing(prev => [...prev, { id: idGenerator(), content: value }])
+        doing.items.push({ id: idGenerator(), content: value })
+        break
       case 'done':
-        return setDone(prev => [...prev, { id: idGenerator(), content: value }])
+        done.items.push({ id: idGenerator(), content: value })
+        break
     }
+    setLists([todo, doing, done])
+    closeNewItemScreen()
   }
 
   const deleteItem = (id: string, title: string) => {
     switch (title) {
       case 'todo':
-        const filteredTodo = todo.filter(item => item.id !== id)
-        return setTodo(filteredTodo)
+        todo.items = todo.items.filter(item => item.id !== id)
       case 'doing':
-        const filteredDoing = doing.filter(item => item.id !== id)
-        return setDoing(filteredDoing)
+        doing.items = doing.items.filter(item => item.id !== id)
       case 'done':
-        const filteredDone = done.filter(item => item.id !== id)
-        return setDone(filteredDone)
+        done.items = done.items.filter(item => item.id !== id)
     }
+    setLists([todo, doing, done])
   }
 
   return (
-    <div className='overflow-hidden h-full w-full flex flex-col justify-between items-center'>
-      <div className='personal-container scroll snap-y h-full w-full flex justify-center items-center gap-2 flex-wrap overflow-auto'>
-        <Card title="todo" items={todo} deleteItem={deleteItem} />
-        <Card title="doing" items={doing} deleteItem={deleteItem} />
-        <Card title="done" items={done} deleteItem={deleteItem} />
-      </div>
-      <div className='w-full gradient-bg personal-shadow'>
-        <div className='py-2 px-2 text-center bg-[#00000030]'>
-          <button onClick={openNewItemScreen} className='max-w-sm py-2 w-full gradient-bg rounded-xl personal-shadow'>
-            <p className='text-2xl text-white font-bold uppercase'>
-              new item
-            </p>
-          </button>
-        </div>
-      </div>
-      {newItemScreen &&
+    <div className='h-full w-full flex flex-col justify-between items-center'>
+      {newItemScreen ?
         <NewItemScreen
           close={closeNewItemScreen}
           addNewItem={addNewItem}
         />
+        :
+        <>
+          <div className='scroll overflow-auto personal-container snap-y h-full w-full flex justify-center items-center gap-2 flex-wrap over'>
+            <Lists lists={lists} deleteItem={deleteItem} />
+          </div>
+          <div className='w-full gradient-bg personal-shadow'>
+            <div className='py-2 px-2 text-center bg-[#00000030]'>
+              <button onClick={openNewItemScreen} className='max-w-sm py-2 w-full gradient-bg rounded-xl personal-shadow'>
+                <p className='text-2xl text-white font-bold uppercase'>
+                  new item
+                </p>
+              </button>
+            </div>
+          </div>
+        </>
       }
     </div>
   )
