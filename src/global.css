@@ -40,7 +40,39 @@ button.gradient-bg:hover {
   box-shadow: 0 0 10px 5px #00000015;
 }
 
+.list {
+  height: calc(100vh - 64px - 8px) !important;
+}
+
+
 @media(max-width: 1220px) {
+  .personal-container {
+    padding: 140px 20px;
+  }
+
+  .list {
+    max-width: 48% !important;
+  }
+
+  .list:last-of-type {
+    max-width: 100% !important;
+  }
+}
+
+
+@media(max-width: 1045px) {
+  .list {
+    max-width: 47% !important;
+  }
+}
+
+@media(max-width: 800px) {
+  .list {
+    max-width: 100% !important;
+  }
+}
+
+@media(max-width: 500px) {
   .personal-container {
     padding: 140px 0;
   }

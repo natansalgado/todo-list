@@ -1,16 +1,9 @@
 import { useState } from 'react'
 
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DroppableProvided,
-  DraggableLocation,
-  DropResult,
-  DroppableStateSnapshot, DraggableProvided, DraggableStateSnapshot
-} from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
 
-import { FaRegTrashAlt } from 'react-icons/fa'
+import { FaRegTrashAlt, FaCheck, FaPencilAlt, FaRegClock } from 'react-icons/fa'
+import { VscGripper } from 'react-icons/vsc'
 
 interface EList {
   title: string;
@@ -32,7 +25,19 @@ export const Lists = ({ lists, deleteItem }: EProps) => {
   const doing = listsState[1]
   const done = listsState[2]
 
-  function handleDragEnd(e: any) {
+  const handleTitle = (title: string) => {
+    const titleDefault = <h1>{title}</h1>
+    switch (title) {
+      case 'todo':
+        return <><FaRegClock />{titleDefault}</>
+      case 'doing':
+        return <><FaPencilAlt />{titleDefault}</>
+      case 'done':
+        return <><FaCheck />{titleDefault}</>
+    }
+  }
+
+  const handleDragEnd = (e: any) => {
     const fromList = e.source.droppableId
     const toList = e.destination.droppableId
     const fromIndex = e.source.index
@@ -87,9 +92,9 @@ export const Lists = ({ lists, deleteItem }: EProps) => {
     <DragDropContext onDragEnd={handleDragEnd}>
       {
         listsState.map(({ title, items }) =>
-          <div key={title} className='list snap-end w-full mx-2 max-w-sm h-[89vh] rounded-xl bg-[#00000060] personal-shadow flex flex-col justify-between'>
-            <div className="py-2 px-6 font-sans text-2xl font-bold uppercase flex justify-between gap-2 rounded-t-xl gradient-bg text-white">
-              <h1>{title}</h1>
+          <div key={title} className='list snap-end scroll-my-1 w-full mx-2 max-w-[30%] rounded-xl bg-[#00000060] personal-shadow flex flex-col justify-between'>
+            <div className="py-2 px-6 font-sans text-2xl font-bold uppercase flex flex-row items-center gap-2 rounded-t-xl gradient-bg text-white">
+              {handleTitle(title)}
             </div>
             <Droppable droppableId={title}>
               {(provided: DroppableProvided) => (
@@ -101,8 +106,9 @@ export const Lists = ({ lists, deleteItem }: EProps) => {
                         {(providedDraggable: DraggableProvided) => (
                           <li ref={providedDraggable.innerRef}
                             {...providedDraggable.draggableProps}
-                            {...providedDraggable.dragHandleProps} className='flex items-center justify-between border-b-[1px] border-b-[#fff5] last-of-type:border-none'>
-                            <p className="text-xl font-bold text-[#fff] p-4 w-full">
+                            {...providedDraggable.dragHandleProps} className='flex items-center justify-between border-b-[1px] border-b-[#fff5]'>
+                            <VscGripper color='white' size={40} />
+                            <p className="text-xl font-bold text-[#fff] px-2 py-4 w-full">
                               {content}
                             </p>
                             <div className='mx-4'>

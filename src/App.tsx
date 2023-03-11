@@ -75,7 +75,7 @@ const App = () => {
         />
         :
         <>
-          <div className='scroll overflow-auto personal-container snap-y h-full w-full flex justify-center items-center gap-2 flex-wrap over'>
+          <div className='scroll overflow-auto personal-container snap-y snap-mandatory h-full w-full flex justify-center items-center gap-2 flex-wrap over'>
             <Lists lists={lists} deleteItem={deleteItem} />
           </div>
           <div className='w-full gradient-bg personal-shadow'>
