@@ -19,7 +19,7 @@ export const Container = styled.div`
     text-transform: uppercase;
     background: ${colors.background};
     border-radius: 15px 15px 0 0;
-    padding: 20px 0;
+    padding: 20px;
 
     button {
       background: none;

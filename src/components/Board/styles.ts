@@ -15,4 +15,12 @@ export const Container = styled.div`
   @media (max-width: 640px) {
     padding: 10px 5px
   }
+
+  &::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #0007;
+    }
 `

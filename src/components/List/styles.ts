@@ -37,7 +37,22 @@ export const Container = styled.div`
   }
   
   ul {
+    height: 100%;
+    overflow-y: auto;
+
     
+    button {
+      background: none;
+      border-radius: 0;
+    }
+    
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #fff5;
+    }
   }
   
   footer {
