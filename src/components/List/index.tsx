@@ -1,48 +1,44 @@
 import { Container } from './styles'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaCheck, FaPencilAlt, FaRegClock } from 'react-icons/fa'
 
 import { Item } from '../Item'
 
 interface listProps {
+  listIndex: number
   data: {
     title: string,
     items: {
       id: string,
       content: string
     }[]
-  }
+  },
+  deleteItemBoard: (index: number, listIndex: number) => void
 }
 
-export const List = ({ data }: listProps) => {
+export const List = ({ data, listIndex, deleteItemBoard }: listProps) => {
 
-  const handleIcon = (title: string) => {
-    switch (title) {
-      case 'todo':
-        return <FaRegClock size={20} />
-      case 'doing':
-        return <FaPencilAlt size={20} />
-      case 'done':
-        return <FaCheck size={20} />
-    }
+
+  const handleIcon = (listIndex: number) => {
+    const Icons = [<FaRegClock size={20} />, <FaPencilAlt size={20} />, <FaCheck size={20} />]
+    return Icons[listIndex]
   }
 
-  const deleteItem = (id: string, title: string) => {
-
+  const deleteItemFunction = (index: number, listIndex: number) => {
+    deleteItemBoard(index, listIndex)
   }
 
   return (
     <Container>
       <header>
-        {handleIcon(data.title)}
+        {handleIcon(listIndex)}
         <h1>{data.title}</h1>
       </header>
       <ul>
         {
-          data.items.length > 0 &&
-          data.items.map((item) =>
-            <Item key={item.id} item={item} title={data.title} deleteItem={deleteItem} />
+          data.items.map((item, index) =>
+            <Item key={item.id} item={item} listIndex={listIndex} index={index} deleteItem={deleteItemFunction} />
           )
         }
       </ul>

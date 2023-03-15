@@ -1,4 +1,4 @@
-export function loadLists() {
+export const loadLists = () => {
   return [
     { title: 'todo', items: [] },
     { title: 'doing', items: [] },

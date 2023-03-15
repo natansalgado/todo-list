@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { render } from 'react-dom'
 
 import { Board } from './components/Board'
 import { Footer } from './components/Footer'
-import { NewItemScreen } from './components/NewItemScreen'
+
 import GlobalStyle from './styles/global'
 
 const App = () => {
@@ -12,20 +13,13 @@ const App = () => {
     setNewItemScreen(!newItemScreen)
   }
 
-  const handleNewItem = () => {
-
-  }
-
   return (
     <div className='App'>
-      {newItemScreen ?
-        <NewItemScreen close={handleNewItemScreen} addNewItem={handleNewItem} />
-        :
-        <>
-          <Board />
-          <Footer openNewItemScreen={handleNewItemScreen} />
-        </>
+      <Board newItemScreen={newItemScreen} handleNewItemScreen={handleNewItemScreen} />
+      {!newItemScreen &&
+        <Footer openNewItemScreen={handleNewItemScreen} />
       }
+
       <GlobalStyle />
     </div>
   )

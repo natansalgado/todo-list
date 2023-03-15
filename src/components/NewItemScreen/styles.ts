@@ -15,6 +15,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 
     text-transform: uppercase;
     background: ${colors.background};
@@ -22,6 +23,7 @@ export const Container = styled.div`
     padding: 20px;
 
     button {
+      display: flex;
       background: none;
       border: none;
     }
@@ -57,8 +59,7 @@ export const Body = styled.div`
 
 export const Buttons = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
   flex-wrap: wrap;
 
   background: ${colors.glass};

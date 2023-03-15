@@ -5,18 +5,21 @@ import { FaArrowLeft, FaPlus } from 'react-icons/fa'
 
 interface NewItemProps {
   close: () => void,
-  addNewItem: (value: string, title: string) => void
+  newItem: (value: string, index: number) => void
 }
 
-export const NewItemScreen = ({ close, addNewItem }: NewItemProps) => {
-  const [newItem, setNewItem] = useState('')
+export const NewItemScreen = ({ close, newItem }: NewItemProps) => {
+  const [value, setValue] = useState('')
 
   const handleNewItem = (e: any) => {
-    setNewItem(e.target.value)
+    setValue(e.target.value)
   }
 
-  const handleAddNewItem = (title: string) => {
-    newItem && addNewItem(newItem, title)
+  const addNewItemFunction = (index: number) => {
+    if (value) {
+      newItem(value, index)
+      close()
+    }
   }
 
   return (
@@ -30,16 +33,16 @@ export const NewItemScreen = ({ close, addNewItem }: NewItemProps) => {
           <FaPlus color='white' size={20} />
         </header>
         <Body className='mt-10 mb-6 px-4'>
-          <input type="text" value={newItem} onChange={handleNewItem} />
+          <input type="text" value={value} onChange={handleNewItem} />
         </Body>
         <Buttons>
-          <button onClick={() => handleAddNewItem('todo')}>
+          <button onClick={() => addNewItemFunction(0)}>
             todo
           </button>
-          <button onClick={() => handleAddNewItem('doing')}>
+          <button onClick={() => addNewItemFunction(1)}>
             doing
           </button>
-          <button onClick={() => handleAddNewItem('done')}>
+          <button onClick={() => addNewItemFunction(2)}>
             done
           </button>
         </Buttons>
