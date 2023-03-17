@@ -1,15 +1,20 @@
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+import { handleNewItemModal, addNewItem } from '../../Store/sliceLists'
+
 import { Container, Box, Body, Buttons } from './styles'
 import { FaArrowLeft, FaPlus } from 'react-icons/fa'
 
-interface NewItemProps {
-  close: () => void,
-  newItem: (value: string, index: number) => void
-}
-
-export const NewItemScreen = ({ close, newItem }: NewItemProps) => {
+export const NewItemModal = () => {
+  const buttons = ['todo', 'doing', 'done']
   const [value, setValue] = useState('')
+
+  const dispatch = useDispatch()
+
+  const closeNewItemModal = () => {
+    dispatch(handleNewItemModal())
+  }
 
   const handleNewItem = (e: any) => {
     setValue(e.target.value)
@@ -17,8 +22,8 @@ export const NewItemScreen = ({ close, newItem }: NewItemProps) => {
 
   const addNewItemFunction = (index: number) => {
     if (value) {
-      newItem(value, index)
-      close()
+      dispatch(addNewItem({ value, index }))
+      closeNewItemModal()
     }
   }
 
@@ -26,7 +31,7 @@ export const NewItemScreen = ({ close, newItem }: NewItemProps) => {
     <Container>
       <Box>
         <header>
-          <button onClick={close}>
+          <button onClick={closeNewItemModal}>
             <FaArrowLeft color='white' size={20} />
           </button>
           <h1>add a new item</h1>
@@ -36,15 +41,13 @@ export const NewItemScreen = ({ close, newItem }: NewItemProps) => {
           <input type="text" value={value} onChange={handleNewItem} />
         </Body>
         <Buttons>
-          <button onClick={() => addNewItemFunction(0)}>
-            todo
-          </button>
-          <button onClick={() => addNewItemFunction(1)}>
-            doing
-          </button>
-          <button onClick={() => addNewItemFunction(2)}>
-            done
-          </button>
+          {
+            buttons.map((button, index) =>
+              <button key={index} onClick={() => addNewItemFunction(index)}>
+                {button}
+              </button>
+            )
+          }
         </Buttons>
         <footer />
       </Box>

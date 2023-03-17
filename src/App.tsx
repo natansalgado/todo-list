@@ -1,25 +1,25 @@
-import { useState } from 'react'
-import { render } from 'react-dom'
-
 import { Board } from './components/Board'
+import { NewItemModal } from './components/NewItemModal'
 import { Footer } from './components/Footer'
+
+import { useSelector } from 'react-redux'
+import { state } from './Store/sliceLists'
 
 import GlobalStyle from './styles/global'
 
 const App = () => {
-  const [newItemScreen, setNewItemScreen] = useState(false)
-
-  const handleNewItemScreen = () => {
-    setNewItemScreen(!newItemScreen)
-  }
+  const { newItemModal } = useSelector(state)
 
   return (
     <div className='App'>
-      <Board newItemScreen={newItemScreen} handleNewItemScreen={handleNewItemScreen} />
-      {!newItemScreen &&
-        <Footer openNewItemScreen={handleNewItemScreen} />
+      {newItemModal ?
+        <NewItemModal />
+        :
+        <>
+          <Board />
+          <Footer />
+        </>
       }
-
       <GlobalStyle />
     </div>
   )

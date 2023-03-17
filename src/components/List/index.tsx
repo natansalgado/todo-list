@@ -1,11 +1,10 @@
 import { Container } from './styles'
 
-import { useEffect, useState } from 'react'
 import { FaCheck, FaPencilAlt, FaRegClock } from 'react-icons/fa'
 
 import { Item } from '../Item'
 
-interface listProps {
+interface Props {
   listIndex: number
   data: {
     title: string,
@@ -14,19 +13,13 @@ interface listProps {
       content: string
     }[]
   },
-  deleteItemBoard: (index: number, listIndex: number) => void
 }
 
-export const List = ({ data, listIndex, deleteItemBoard }: listProps) => {
-
+export const List = ({ data, listIndex }: Props) => {
 
   const handleIcon = (listIndex: number) => {
     const Icons = [<FaRegClock size={20} />, <FaPencilAlt size={20} />, <FaCheck size={20} />]
     return Icons[listIndex]
-  }
-
-  const deleteItemFunction = (index: number, listIndex: number) => {
-    deleteItemBoard(index, listIndex)
   }
 
   return (
@@ -38,7 +31,7 @@ export const List = ({ data, listIndex, deleteItemBoard }: listProps) => {
       <ul>
         {
           data.items.map((item, index) =>
-            <Item key={item.id} item={item} listIndex={listIndex} index={index} deleteItem={deleteItemFunction} />
+            <Item key={item.id} item={item} listIndex={listIndex} index={index} />
           )
         }
       </ul>

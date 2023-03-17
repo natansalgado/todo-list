@@ -51,9 +51,10 @@ export const Body = styled.div`
   }
   
   input {
+    font-size: 20px;
     padding: 0 20px;
     width: 100%;
-    height: 40px;
+    height: 50px;
   }
 `
 

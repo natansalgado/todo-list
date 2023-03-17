@@ -20,7 +20,8 @@ export default createGlobalStyle`
   }
 
   body, button, p, input {
-    font: 14px 'Roboto', sans-serif;
+    font-family: 'roboto', sans-serif;
+    font-size: 14px;
     color: ${colors.color};
     -webkit-font-smoothing: antialised !important;
   }

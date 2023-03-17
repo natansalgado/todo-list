@@ -1,5 +1,8 @@
 import { Container } from './styles'
 
+import { useDispatch } from 'react-redux'
+import { deleteItem } from '../../Store/sliceLists'
+
 import { FaRegTrashAlt } from 'react-icons/fa'
 import { VscGripper } from 'react-icons/vsc'
 
@@ -10,10 +13,15 @@ interface itemProps {
     id: string,
     content: string
   }
-  deleteItem: (index: number, listIndex: number) => void
 }
 
-export const Item = ({ index, listIndex, item, deleteItem }: itemProps) => {
+export const Item = ({ index, listIndex, item }: itemProps) => {
+  const dispatch = useDispatch()
+
+  const handleDeleteItem = (listIndex: number, index: number) => {
+    dispatch(deleteItem({ listIndex, index }))
+  }
+
   return (
     <Container>
       <VscGripper color='white' size={40} />
@@ -21,7 +29,7 @@ export const Item = ({ index, listIndex, item, deleteItem }: itemProps) => {
         {item.content}
       </p>
       <div className='mx-2'>
-        <button onClick={() => deleteItem(index, listIndex)}>
+        <button onClick={() => handleDeleteItem(listIndex, index)}>
           <FaRegTrashAlt color='white' size={20} />
         </button>
       </div>
