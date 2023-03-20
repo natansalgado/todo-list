@@ -1,7 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { colors } from "../../styles/global";
 
-export const Container = styled.div`
+interface Props {
+  isOver: boolean
+}
+
+export const Container = styled.div<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,14 +17,16 @@ export const Container = styled.div`
   background: ${colors.glass};
   border-radius: 15px;
   
+  filter: ${({ isOver }) => isOver ? 'brightness(1.1)' : 'none'};
+  
   @media (max-width: 900px) {
     width: calc((100% / 2) - 10px);
   }
-
+  
   @media (max-width: 640px) {
     width: 90%;
   }
-
+  
   @media (max-width: 432px) {
     width: 380px;
   }
@@ -39,7 +45,6 @@ export const Container = styled.div`
   ul {
     height: 100%;
     overflow-y: auto;
-
     
     button {
       background: none;

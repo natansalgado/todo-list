@@ -38,11 +38,19 @@ const slice = createSlice({
     },
     handleNewItemModal: (state) => {
       return { ...state, newItemModal: !state.newItemModal }
+    },
+    moveCard: ({ lists }, { payload }) => {
+      lists[payload.dragList].items.splice(payload.dragIndex, 1)
+      lists[payload.hoverList].items.splice(payload.hoverIndex, 0, payload.item)
+    },
+    moveToList: ({ lists }, { payload }) => {
+      lists[payload.hoverList].items.push(payload.dragItem)
+      lists[payload.dragList].items.splice(payload.dragIndex, 1)
     }
   }
 })
 
-export const { addNewItem, deleteItem, handleNewItemModal } = slice.actions
+export const { addNewItem, deleteItem, handleNewItemModal, moveCard, moveToList } = slice.actions
 
 export const state = ({ lists }: RootState) => lists
 
