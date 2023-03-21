@@ -20,39 +20,51 @@ let listIndexToEdit = 0
 let itemIndexToEdit = 0
 export let valueToEdit = ''
 
-const initialState: State = {
-  newItemModal: false,
-  editModal: false,
-  lists: [
-    { title: 'todo', items: [] },
-    { title: 'doing', items: [] },
-    { title: 'done', items: [] }
-  ]
-}
+const localStorageState = localStorage.getItem('@lists')
+
+const initialState: State =
+  localStorageState
+    ?
+    JSON.parse(localStorageState)
+    :
+    {
+      newItemModal: false,
+      editModal: false,
+      lists: [
+        { title: 'todo', items: [] },
+        { title: 'doing', items: [] },
+        { title: 'done', items: [] }
+      ]
+    }
 
 const slice = createSlice({
   name: 'lists',
   initialState,
   reducers: {
     // LISTS HANDLERS -----------------------
-    addNewItem: ({ lists }, { payload }) => {
-      { lists[payload.index].items.push({ id: idGenerator(), content: payload.value }) }
+    addNewItem: (state, { payload }) => {
+      { state.lists[payload.index].items.push({ id: idGenerator(), content: payload.value }) }
+      localStorage.setItem('@lists', JSON.stringify({ ...state, newItemModal: false }))
     },
-    editItem: ({ lists }, { payload }) => {
-      lists[listIndexToEdit].items[itemIndexToEdit].content = payload
+    editItem: (state, { payload }) => {
+      state.lists[listIndexToEdit].items[itemIndexToEdit].content = payload
+      localStorage.setItem('@lists', JSON.stringify({ ...state, editModal: false }))
     },
-    deleteItem: ({ lists }, { payload }) => {
-      { lists[payload.listIndex].items.splice(payload.index, 1) }
+    deleteItem: (state, { payload }) => {
+      { state.lists[payload.listIndex].items.splice(payload.index, 1) }
+      localStorage.setItem('@lists', JSON.stringify(state))
     },
 
     // DRAG AND DROP HANDLERS -------------
-    moveCard: ({ lists }, { payload }) => {
-      lists[payload.dragList].items.splice(payload.dragIndex, 1)
-      lists[payload.hoverList].items.splice(payload.hoverIndex, 0, payload.item)
+    moveCard: (state, { payload }) => {
+      state.lists[payload.dragList].items.splice(payload.dragIndex, 1)
+      state.lists[payload.hoverList].items.splice(payload.hoverIndex, 0, payload.item)
+      localStorage.setItem('@lists', JSON.stringify(state))
     },
-    moveToList: ({ lists }, { payload }) => {
-      lists[payload.hoverList].items.push(payload.dragItem)
-      lists[payload.dragList].items.splice(payload.dragIndex, 1)
+    moveToList: (state, { payload }) => {
+      state.lists[payload.dragList].items.splice(payload.dragIndex, 1)
+      state.lists[payload.hoverList].items.splice(state.lists[payload.hoverList].items.length, 0, payload.dragItem)
+      localStorage.setItem('@lists', JSON.stringify(state))
     },
 
     // MODALS HANDLERS -------------
