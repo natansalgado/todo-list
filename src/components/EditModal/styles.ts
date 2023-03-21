@@ -59,17 +59,13 @@ export const Body = styled.div`
 `
 
 export const Buttons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
+  text-align: center;
   background: ${colors.glass};
-  padding: 10px 10px 30px;
+  padding: 10px 0 30px;
 
   button {
     text-transform: uppercase;
-    padding: 8px 15px;
+    padding: 8px 20px;
     font-size: 18px;
   }
 `
-

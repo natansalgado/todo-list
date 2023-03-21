@@ -1,13 +1,13 @@
-import { Container } from './styles'
+import { Container, Buttons } from './styles'
 
 import { Identifier, XYCoord } from 'dnd-core'
 import { useDrag } from 'react-dnd'
 import { useDrop } from 'react-dnd'
 
 import { useDispatch } from 'react-redux'
-import { deleteItem, moveCard } from '../../Store/sliceLists'
+import { deleteItem, moveCard, handleEditModal } from '../../Store/sliceLists'
 
-import { FaRegTrashAlt } from 'react-icons/fa'
+import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
 import { VscGripper } from 'react-icons/vsc'
 import { useRef } from 'react'
 
@@ -26,6 +26,10 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
 
   const handleDeleteItem = (listIndex: number, index: number) => {
     dispatch(deleteItem({ listIndex, index }))
+  }
+
+  const openEditModal = () => {
+    dispatch(handleEditModal({ listIndex, index, value: listItem.content }))
   }
 
   const [{ handlerId }, dropRef] = useDrop<itemProps, void, { handlerId: Identifier | any }>({
@@ -77,11 +81,14 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
       <p>
         {listItem.content}
       </p>
-      <div className='mx-2'>
-        <button onClick={() => handleDeleteItem(listIndex, index)}>
-          <FaRegTrashAlt color='white' size={20} />
+      <Buttons isDragging={isDragging}>
+        <button onClick={openEditModal}>
+          <FaRegEdit size={22} />
         </button>
-      </div>
+        <button onClick={() => handleDeleteItem(listIndex, index)}>
+          <FaRegTrashAlt size={20} />
+        </button>
+      </Buttons>
     </Container>
   )
 }

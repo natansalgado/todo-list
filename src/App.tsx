@@ -9,15 +9,19 @@ import { useSelector } from 'react-redux'
 import { state } from './Store/sliceLists'
 
 import GlobalStyle from './styles/global'
+import { EditModal } from './components/EditModal'
 
 const App = () => {
-  const { newItemModal } = useSelector(state)
+  const { newItemModal, editModal } = useSelector(state)
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className='App'>
         {newItemModal ?
           <NewItemModal />
+          :
+          editModal ?
+          <EditModal />
           :
           <>
             <Board />
