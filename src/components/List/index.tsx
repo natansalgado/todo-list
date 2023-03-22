@@ -44,8 +44,6 @@ export const List = ({ data, listIndex }: Props) => {
       const dragList = item.listIndex
       const hoverList = listIndex
 
-      if (dragList === hoverList) return
-
       const dragIndex = item.index
       const dragItem = item.listItem
 

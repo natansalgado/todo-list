@@ -1,9 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
 
+export const background1 = '#00c8ff'
+export const background2 = '#b300ff'
+export const glassColor = '#00000040'
+export const color = '#fff'
+
 export const colors = {
-  background: 'linear-gradient(220deg, #00c8ff 10%, #b300ff 90%) fixed',
-  glass: 'rgba(0, 0, 0, 0.25)',
-  color: '#fff'
+  background: `linear-gradient(220deg, ${background1} 10%, ${background2} 90%) fixed`,
+  glass: glassColor,
+  color: color
 }
 
 export default createGlobalStyle`

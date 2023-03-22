@@ -1,5 +1,7 @@
 import { Board } from './components/Board'
 import { NewItemModal } from './components/NewItemModal'
+import { EditModal } from './components/EditModal'
+import { ConfigModal } from './components/ConfigModal'
 import { Footer } from './components/Footer'
 
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -9,10 +11,9 @@ import { useSelector } from 'react-redux'
 import { state } from './Store/sliceLists'
 
 import GlobalStyle from './styles/global'
-import { EditModal } from './components/EditModal'
 
 const App = () => {
-  const { newItemModal, editModal } = useSelector(state)
+  const { newItemModal, editModal, configModal } = useSelector(state)
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -21,12 +22,15 @@ const App = () => {
           <NewItemModal />
           :
           editModal ?
-          <EditModal />
-          :
-          <>
-            <Board />
-            <Footer />
-          </>
+            <EditModal />
+            :
+            configModal ?
+              <ConfigModal />
+              :
+              <>
+                <Board />
+                <Footer />
+              </>
         }
         <GlobalStyle />
       </div>

@@ -13,6 +13,7 @@ interface Lists {
 interface State {
   newItemModal: boolean
   editModal: boolean
+  configModal: boolean
   lists: Lists[]
 }
 
@@ -30,6 +31,7 @@ const initialState: State =
     {
       newItemModal: false,
       editModal: false,
+      configModal: false,
       lists: [
         { title: 'todo', items: [] },
         { title: 'doing', items: [] },
@@ -80,14 +82,16 @@ const slice = createSlice({
         editModal: !state.editModal
       }
     },
+    handleConfigModal: (state) => {
+      return { ...state, configModal: !state.configModal }
+    }
   }
 })
 
 export const {
-  addNewItem, deleteItem,
-  handleNewItemModal,
-  handleEditModal, editItem,
-  moveCard, moveToList
+  addNewItem, deleteItem, editItem,
+  moveCard, moveToList,
+  handleNewItemModal, handleEditModal, handleConfigModal
 } = slice.actions
 
 export const state = ({ lists }: RootState) => lists

@@ -12,6 +12,8 @@ export const Container = styled.li<Props>`
   border-bottom: 1px #fff4 dashed;
   cursor: grab;
   
+  
+
   p {
     opacity: ${({ isDragging }) => isDragging ? 0 : 1};
     width: 100%; 
