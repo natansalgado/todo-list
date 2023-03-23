@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import listsReducer from './sliceLists'
+import configReducer from './sliceConfig'
 
 const store = configureStore({
   reducer: {
-    lists: listsReducer
+    lists: listsReducer,
+    config: configReducer
   }
 })
 

@@ -11,6 +11,7 @@ export const Container = styled.div`
   width: 100%;
   padding: 10px 20px;
   overflow-y: auto;
+  overflow-x: hidden;
 
   @media (max-width: 640px) {
     padding: 10px 5px

@@ -32,10 +32,10 @@ export const NewItemModal = () => {
       <Box>
         <header>
           <button onClick={closeNewItemModal}>
-            <FaArrowLeft color='white' size={20} />
+            <FaArrowLeft size={20} />
           </button>
           <h1>add a new item</h1>
-          <FaPlus color='white' size={20} />
+          <FaPlus size={20} />
         </header>
         <Body className='mt-10 mb-6 px-4'>
           <input type="text" value={value} onChange={handleNewItem} />

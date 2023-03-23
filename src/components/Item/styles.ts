@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { colors } from '../../styles/global'
+
 interface Props {
   isDragging: boolean
 }
@@ -9,7 +11,7 @@ export const Container = styled.li<Props>`
   align-items: center;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px #fff4 dashed;
+  border-bottom: 1px ${colors.color + '40'} dashed;
   cursor: grab;
   
   

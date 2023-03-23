@@ -77,7 +77,7 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
   dragRef(dropRef(ref))
   return (
     <Container isDragging={isDragging} ref={ref} data-handler-id={handlerId}>
-      <VscGripper color='white' size={40} />
+      <VscGripper size={40} />
       <p>
         {listItem.content}
       </p>

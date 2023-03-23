@@ -52,13 +52,59 @@ export const Body = styled.div`
 `
 
 export const Inputs = styled.div`
-  background: ${colors.background};
   display: flex;
-  align-items: center;
-  gap: 10px;
-
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  
+  background: ${colors.background};
   border-radius: 12px;
   padding: 5px 15px;
+
+  hr {
+    width: 100%;
+    opacity: 40%;
+    margin-top: -5px;
+    margin-bottom: 5px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    width: 100%;
+
+    div {
+      justify-content: start;
+    }
+    
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 30px;
+      width: 100%;
+      max-width: 145px;
+      border-radius: 20px;
+      background: ${colors.glass};
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background: ${colors.background};
+        border: 2px solid ${colors.glass};
+        cursor: ew-resize;
+
+      }
+
+      &::-webkit-slider-thumb:hover {
+        filter: brightness(1.1);
+      }
+    } 
+  }
+  
 
   p {
     text-transform: uppercase;
@@ -66,17 +112,29 @@ export const Inputs = styled.div`
     font-weight: 500;
   }
 
-  input {
+  input[type='color'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    max-width: 145px;
     border-radius: 0;
     height: 40px;
-    width: 40px;
-    outline: none;
-    border: none;
+    width: 100%;
     cursor: pointer;
+    filter: none;
+
+    &::-webkit-color-swatch {
+    border-radius: 20px;
+    border: none;
+    }
+
   }
 `
 
 export const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
   text-align: center;
   background: ${colors.glass};
   padding: 10px 0 30px;

@@ -1,13 +1,11 @@
 import { createGlobalStyle } from 'styled-components'
+import { initialState } from '../Store/sliceConfig'
 
-export const background1 = '#00c8ff'
-export const background2 = '#b300ff'
-export const glassColor = '#00000040'
-export const color = '#fff'
+const { background1, background2, glassColor, color, opacity } = initialState
 
 export const colors = {
   background: `linear-gradient(220deg, ${background1} 10%, ${background2} 90%) fixed`,
-  glass: glassColor,
+  glass: 'rgba(' + parseInt(glassColor.slice(-6, -4), 16) + ',' + parseInt(glassColor.slice(-4, -2), 16) + ',' + parseInt(glassColor.slice(-2), 16) + ',' + opacity + '%' + ')',
   color: color
 }
 

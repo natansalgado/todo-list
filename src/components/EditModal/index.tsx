@@ -29,10 +29,10 @@ export const EditModal = () => {
       <Box>
         <header>
           <button onClick={closeEditModal}>
-            <FaArrowLeft color='white' size={20} />
+            <FaArrowLeft size={20} />
           </button>
           <h1>edit item</h1>
-          <FaRegEdit color='white' size={24} />
+          <FaRegEdit size={24} />
         </header>
         <Body className='mt-10 mb-6 px-4'>
           <input type="text" value={value} onChange={handleItemValue} />

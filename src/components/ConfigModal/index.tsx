@@ -3,15 +3,18 @@ import { Container, Box, Body, Buttons, Inputs } from './styles'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BsGear } from 'react-icons/bs'
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { handleConfigModal } from '../../Store/sliceLists'
+import { config, save } from '../../Store/sliceConfig'
 
-import { background1, background2, color, glassColor } from '../../styles/global'
 
 export const ConfigModal = () => {
+  const { background1, background2, glassColor, color, opacity } = useSelector(config)
+
   const [bg1, setBg1] = useState(background1)
   const [bg2, setBg2] = useState(background2)
-  const [gs, setGs] = useState(glassColor)
+  const [gc, setGC] = useState(glassColor)
+  const [op, setOp] = useState(opacity)
   const [cl, setCl] = useState(color)
 
   const dispatch = useDispatch()
@@ -20,9 +23,28 @@ export const ConfigModal = () => {
     dispatch(handleConfigModal())
   }
 
-  const saveConfig = () => {
-    closeConfigModal()
+  const restoreDefault = () => {
+    dispatch(save({
+      background1: '#00c8ff',
+      background2: '#b300ff',
+      glassColor: '#000000',
+      opacity: '40',
+      color: '#ffffff'
+    }))
+    window.location.reload()
   }
+
+  const saveConfig = () => {
+    dispatch(save({
+      background1: bg1,
+      background2: bg2,
+      glassColor: gc,
+      opacity: op,
+      color: cl
+    }))
+    window.location.reload()
+  }
+
 
   return (
     <Container>
@@ -32,25 +54,49 @@ export const ConfigModal = () => {
             <FaArrowLeft size={20} />
           </button>
           <h1>theme config</h1>
-          <BsGear color='white' size={24} />
+          <BsGear size={24} />
         </header>
         <Body className='mt-10 mb-6 px-4'>
           <Inputs>
-            <p>background:</p>
-            <input type="color" value={bg1} onChange={e => setBg1(e.target.value)} />
-            <p>to</p>
-            <input type="color" value={bg2} onChange={e => setBg2(e.target.value)} />
+            <p>background gradient</p>
+            <hr />
+            <div>
+              <p>from</p>
+              <input type="color" value={bg1} onChange={e => setBg1(e.target.value)} />
+            </div>
+            <div>
+              <p>to</p>
+              <input type="color" value={bg2} onChange={e => setBg2(e.target.value)} />
+            </div>
           </Inputs>
           <Inputs>
-            <p>glass:</p>
-            <input type="color" value={gs} onChange={e => setGs(e.target.value)} />
+            <p>list background</p>
+            <hr />
+            <div>
+              <p>glass</p>
+              <input type="color" accept='rgb' value={gc} onChange={e => setGC(e.target.value)} />
+            </div>
+            <div>
+              <div>
+                <p>opacity</p>
+                <p>{op}%</p>
+              </div>
+              <input type="range" value={op} min={0} max={100} onChange={e => setOp(e.target.value)} />
+            </div>
           </Inputs>
           <Inputs>
-            <p>text:</p>
-            <input type="color" value={cl} onChange={e => setCl(e.target.value)} />
+            <p>text color</p>
+            <hr />
+            <div>
+              <p>text</p>
+              <input type="color" value={cl} onChange={e => setCl(e.target.value)} />
+            </div>
           </Inputs>
         </Body>
         <Buttons>
+          <button onClick={restoreDefault}>
+            default
+          </button>
           <button onClick={saveConfig}>
             Save
           </button>
