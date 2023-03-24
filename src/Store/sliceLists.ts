@@ -42,11 +42,11 @@ const slice = createSlice({
     // LISTS HANDLERS -----------------------
     addNewItem: (state, { payload }) => {
       { state.lists[payload.index].items.push({ id: idGenerator(), content: payload.value }) }
-      localStorage.setItem('@lists', JSON.stringify({ ...state, newItemModal: false }))
+      localStorage.setItem('@lists', JSON.stringify({ ...state }))
     },
     editItem: (state, { payload }) => {
       state.lists[edit.listIndex].items[edit.itemIndex].content = payload
-      localStorage.setItem('@lists', JSON.stringify({ ...state, editModal: false }))
+      localStorage.setItem('@lists', JSON.stringify({ ...state }))
     },
     deleteItem: (state, { payload }) => {
       { state.lists[payload.listIndex].items.splice(payload.index, 1) }
@@ -54,19 +54,20 @@ const slice = createSlice({
     },
     // DRAG AND DROP HANDLERS -------------
     moveCard: (state, { payload }) => {
-      state.lists[payload.dragList].items.splice(payload.dragIndex, 1)
-      state.lists[payload.hoverList].items.splice(payload.hoverIndex, 0, payload.item)
-      localStorage.setItem('@lists', JSON.stringify(state))
-    },
-    moveToList: (state, { payload }) => {
-      state.lists[payload.dragList].items.splice(payload.dragIndex, 1)
-      state.lists[payload.hoverList].items.splice(state.lists[payload.hoverList].items.length, 0, payload.dragItem)
+
+      var stateCopy = state
+      var item = state.lists[payload.fromList].items[payload.fromIndex]
+
+      stateCopy.lists[payload.fromList].items.splice(payload.fromIndex, 1)
+      stateCopy.lists[payload.toList].items.splice(payload.toIndex, 0, item)
+
+      state = stateCopy
       localStorage.setItem('@lists', JSON.stringify(state))
     },
   }
 })
 
-export const { addNewItem, deleteItem, editItem, moveCard, moveToList } = slice.actions
+export const { addNewItem, deleteItem, editItem, moveCard } = slice.actions
 
 export const state = ({ lists }: RootState) => lists
 
