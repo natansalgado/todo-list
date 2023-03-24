@@ -11,15 +11,14 @@ interface Lists {
 }
 
 interface State {
-  newItemModal: boolean
-  editModal: boolean
-  configModal: boolean
   lists: Lists[]
 }
 
-let listIndexToEdit = 0
-let itemIndexToEdit = 0
-export let valueToEdit = ''
+export const edit = {
+  listIndex: 0,
+  itemIndex: 0,
+  value: ''
+}
 
 const localStorageState = localStorage.getItem('@lists')
 
@@ -29,9 +28,6 @@ const initialState: State =
     JSON.parse(localStorageState)
     :
     {
-      newItemModal: false,
-      editModal: false,
-      configModal: false,
       lists: [
         { title: 'todo', items: [] },
         { title: 'doing', items: [] },
@@ -49,14 +45,13 @@ const slice = createSlice({
       localStorage.setItem('@lists', JSON.stringify({ ...state, newItemModal: false }))
     },
     editItem: (state, { payload }) => {
-      state.lists[listIndexToEdit].items[itemIndexToEdit].content = payload
+      state.lists[edit.listIndex].items[edit.itemIndex].content = payload
       localStorage.setItem('@lists', JSON.stringify({ ...state, editModal: false }))
     },
     deleteItem: (state, { payload }) => {
       { state.lists[payload.listIndex].items.splice(payload.index, 1) }
       localStorage.setItem('@lists', JSON.stringify(state))
     },
-
     // DRAG AND DROP HANDLERS -------------
     moveCard: (state, { payload }) => {
       state.lists[payload.dragList].items.splice(payload.dragIndex, 1)
@@ -68,31 +63,10 @@ const slice = createSlice({
       state.lists[payload.hoverList].items.splice(state.lists[payload.hoverList].items.length, 0, payload.dragItem)
       localStorage.setItem('@lists', JSON.stringify(state))
     },
-
-    // MODALS HANDLERS -------------
-    handleNewItemModal: (state) => {
-      return { ...state, newItemModal: !state.newItemModal }
-    },
-    handleEditModal: (state, { payload }) => {
-      listIndexToEdit = payload.listIndex
-      itemIndexToEdit = payload.index
-      valueToEdit = payload.value
-      return {
-        ...state,
-        editModal: !state.editModal
-      }
-    },
-    handleConfigModal: (state) => {
-      return { ...state, configModal: !state.configModal }
-    }
   }
 })
 
-export const {
-  addNewItem, deleteItem, editItem,
-  moveCard, moveToList,
-  handleNewItemModal, handleEditModal, handleConfigModal
-} = slice.actions
+export const { addNewItem, deleteItem, editItem, moveCard, moveToList } = slice.actions
 
 export const state = ({ lists }: RootState) => lists
 

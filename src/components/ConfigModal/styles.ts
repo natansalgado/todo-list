@@ -62,6 +62,7 @@ export const Inputs = styled.div`
   padding: 5px 15px;
 
   hr {
+    border-top: .5px solid ${colors.color};
     width: 100%;
     opacity: 40%;
     margin-top: -5px;

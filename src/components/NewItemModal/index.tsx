@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { handleNewItemModal, addNewItem } from '../../Store/sliceLists'
+import { addNewItem } from '../../Store/sliceLists'
+import { newItemModal } from '../../Store/sliceModals'
 
 import { Container, Box, Body, Buttons } from './styles'
 import { FaArrowLeft, FaPlus } from 'react-icons/fa'
@@ -13,7 +14,7 @@ export const NewItemModal = () => {
   const dispatch = useDispatch()
 
   const closeNewItemModal = () => {
-    dispatch(handleNewItemModal())
+    dispatch(newItemModal())
   }
 
   const handleNewItem = (e: any) => {

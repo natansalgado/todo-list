@@ -8,12 +8,12 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
 import { useSelector } from 'react-redux'
-import { state } from './Store/sliceLists'
+import { modals } from './Store/sliceModals'
 
 import GlobalStyle from './styles/global'
 
 const App = () => {
-  const { newItemModal, editModal, configModal } = useSelector(state)
+  const { newItemModal, editModal, configModal } = useSelector(modals)
 
   return (
     <DndProvider backend={HTML5Backend}>

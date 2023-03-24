@@ -5,10 +5,11 @@ import { useDrag } from 'react-dnd'
 import { useDrop } from 'react-dnd'
 
 import { useDispatch } from 'react-redux'
-import { deleteItem, moveCard, handleEditModal } from '../../Store/sliceLists'
+import { deleteItem, moveCard } from '../../Store/sliceLists'
+import { editModal } from '../../Store/sliceModals'
 
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
-import { VscGripper } from 'react-icons/vsc'
+import { BsList } from 'react-icons/bs'
 import { useRef } from 'react'
 
 interface itemProps {
@@ -29,7 +30,7 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
   }
 
   const openEditModal = () => {
-    dispatch(handleEditModal({ listIndex, index, value: listItem.content }))
+    dispatch(editModal({ listIndex, index, value: listItem.content }))
   }
 
   const [{ handlerId }, dropRef] = useDrop<itemProps, void, { handlerId: Identifier | any }>({
@@ -76,19 +77,19 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
 
   dragRef(dropRef(ref))
   return (
-    <Container isDragging={isDragging} ref={ref} data-handler-id={handlerId}>
-      <VscGripper size={40} />
-      <p>
-        {listItem.content}
-      </p>
-      <Buttons isDragging={isDragging}>
-        <button onClick={openEditModal}>
-          <FaRegEdit size={22} />
-        </button>
-        <button onClick={() => handleDeleteItem(listIndex, index)}>
-          <FaRegTrashAlt size={20} />
-        </button>
-      </Buttons>
-    </Container>
+      <Container isDragging={isDragging} ref={ref} data-handler-id={handlerId}>
+        <BsList size={24} />
+        <p>
+          {listItem.content}
+        </p>
+        <Buttons isDragging={isDragging}>
+          <button onClick={openEditModal}>
+            <FaRegEdit size={22} />
+          </button>
+          <button onClick={() => handleDeleteItem(listIndex, index)}>
+            <FaRegTrashAlt size={20} />
+          </button>
+        </Buttons>
+      </Container>
   )
 }

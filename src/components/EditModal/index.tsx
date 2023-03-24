@@ -3,10 +3,11 @@ import { Container, Box, Body, Buttons } from './styles'
 import { FaArrowLeft, FaRegEdit } from 'react-icons/fa'
 
 import { useDispatch } from 'react-redux'
-import { editItem, handleEditModal, valueToEdit } from '../../Store/sliceLists'
+import { editItem, edit } from '../../Store/sliceLists'
+import { editModal } from '../../Store/sliceModals'
 
 export const EditModal = () => {
-  const [value, setValue] = useState(valueToEdit)
+  const [value, setValue] = useState(edit.value)
   const dispatch = useDispatch()
 
   const handleItemValue = (e: any) => {
@@ -14,7 +15,7 @@ export const EditModal = () => {
   }
 
   const closeEditModal = () => {
-    dispatch(handleEditModal(value))
+    dispatch(editModal(value))
   }
 
   const handleEditItem = () => {

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 import { colors } from '../../styles/global'
 
 interface Props {
@@ -10,11 +9,9 @@ export const Container = styled.li<Props>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px ${colors.color + '40'} dashed;
+  padding: 8px 0 8px 8px;
+  border-bottom: 2px ${colors.color + '40'} solid;
   cursor: grab;
-  
-  
 
   p {
     opacity: ${({ isDragging }) => isDragging ? 0 : 1};

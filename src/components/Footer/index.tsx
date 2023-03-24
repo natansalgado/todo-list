@@ -1,7 +1,7 @@
 import { Container } from './styles'
 
 import { useDispatch } from 'react-redux'
-import { handleNewItemModal, handleConfigModal } from '../../Store/sliceLists'
+import { newItemModal, configModal } from '../../Store/sliceModals'
 
 import { BsGear } from 'react-icons/bs'
 
@@ -9,11 +9,11 @@ export const Footer = () => {
   const dispatch = useDispatch()
 
   const openNewItemModal = () => {
-    dispatch(handleNewItemModal())
+    dispatch(newItemModal())
   }
 
   const openConfigModal = () => {
-    dispatch(handleConfigModal())
+    dispatch(configModal())
   }
 
   return (

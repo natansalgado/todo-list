@@ -4,7 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { BsGear } from 'react-icons/bs'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { handleConfigModal } from '../../Store/sliceLists'
+import { configModal } from '../../Store/sliceModals'
 import { config, save } from '../../Store/sliceConfig'
 
 
@@ -20,7 +20,7 @@ export const ConfigModal = () => {
   const dispatch = useDispatch()
 
   const closeConfigModal = () => {
-    dispatch(handleConfigModal())
+    dispatch(configModal())
   }
 
   const restoreDefault = () => {
@@ -94,11 +94,11 @@ export const ConfigModal = () => {
           </Inputs>
         </Body>
         <Buttons>
-          <button onClick={restoreDefault}>
-            default
-          </button>
           <button onClick={saveConfig}>
             Save
+          </button>
+          <button onClick={restoreDefault}>
+            default
           </button>
         </Buttons>
         <footer />
