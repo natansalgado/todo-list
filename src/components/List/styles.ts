@@ -6,14 +6,15 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
+  height: fit-content;
   min-height: calc(100vh - 80px);
-  height: 100%;
+  max-height: fit-content;
   width: calc((100% / 3) - 20px);
   min-width: 270px;
   max-width: 500px;
   background: ${colors.glass};
   border-radius: 15px;
-  
+
   @media (max-width: 900px) {
     width: calc((100% / 2) - 10px);
   }
@@ -39,6 +40,7 @@ export const Container = styled.div`
   
  ul {
     height: 100%;
+    min-height: calc(100vh - 80px - 64px);
 
     button {
       background: none;

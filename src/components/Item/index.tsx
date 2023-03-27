@@ -7,7 +7,7 @@ import { editModal } from '../../Store/sliceModals'
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
 import { BsList } from 'react-icons/bs'
 
-import { Draggable } from 'react-beautiful-dnd'
+import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 
 interface itemProps {
   index: number
@@ -30,8 +30,8 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
   }
 
   return (
-    <Draggable draggableId={listItem.id} index={index} >
-      {(provided) => (
+    <Draggable key={listItem.id} draggableId={listItem.id} index={index} >
+      {(provided: DraggableProvided) => (
         <Container
           {...provided.dragHandleProps}
           {...provided.draggableProps}
@@ -39,11 +39,9 @@ export const Item = ({ index, listIndex, listItem }: itemProps) => {
           style={{ ...provided.draggableProps.style }}
         >
           <BsList size={24} />
-          {index}
           <p>
             {listItem.content}
           </p>
-          {listItem.id}
           <Buttons>
             <button onClick={openEditModal}>
               <FaRegEdit size={22} />

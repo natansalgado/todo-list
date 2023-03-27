@@ -9,16 +9,19 @@ import { moveCard, state } from '../../Store/sliceLists';
 
 export const Board = () => {
   const { lists } = useSelector(state)
+
   const dispatch = useDispatch()
 
-  const handleDropEnd = (e: any) => {
-    if (e.destination) {
-      const fromList = Number(e.source.droppableId)
-      const toList = Number(e.destination.droppableId)
-      const fromIndex = e.source.index
-      const toIndex = e.destination.index
+  const handleDropEnd = (result: any) => {
+    const { destination, source } = result
 
-      dispatch(moveCard({ fromList, toList, fromIndex, toIndex }))
+    if (destination) {
+      dispatch(moveCard({
+        fromList: Number(source.droppableId),
+        toList: Number(destination.droppableId),
+        fromIndex: source.index,
+        toIndex: destination.index
+      }))
     }
   }
 

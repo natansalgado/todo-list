@@ -54,7 +54,6 @@ const slice = createSlice({
     },
     // DRAG AND DROP HANDLERS -------------
     moveCard: (state, { payload }) => {
-
       var stateCopy = state
       var item = state.lists[payload.fromList].items[payload.fromIndex]
 
