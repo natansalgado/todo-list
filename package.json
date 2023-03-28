@@ -2,7 +2,6 @@
   "name": "-todo-list",
   "private": true,
   "version": "0.0.0",
-  "homepage": "todo-list/",
   "type": "module",
   "scripts": {
     "dev": "vite",
