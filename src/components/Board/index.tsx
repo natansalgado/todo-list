@@ -6,6 +6,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { moveCard, state } from '../../Store/sliceLists';
+import { useEffect } from 'react';
 
 export const Board = () => {
   const { lists } = useSelector(state)
@@ -24,6 +25,14 @@ export const Board = () => {
       }))
     }
   }
+
+  useEffect(() => {
+    if (lists[0].items.length > 0) {
+      document.title = `(${lists[0].items.length}) To do list`;
+    } else {
+      document.title = `To do list`;
+    }
+  })
 
   return (
     <Container>
