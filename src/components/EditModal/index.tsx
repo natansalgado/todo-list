@@ -25,6 +25,12 @@ export const EditModal = () => {
     }
   }
 
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      handleEditItem()
+    }
+  }
+
   return (
     <Container>
       <Box>
@@ -36,7 +42,7 @@ export const EditModal = () => {
           <FaRegEdit size={24} />
         </header>
         <Body className='mt-10 mb-6 px-4'>
-          <input type="text" value={value} onChange={handleItemValue} />
+          <input onKeyDown={handleKeyDown} autoFocus type="text" value={value} onChange={handleItemValue} />
         </Body>
         <Buttons>
           <button onClick={handleEditItem}>

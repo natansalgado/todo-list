@@ -45,7 +45,6 @@ export const ConfigModal = () => {
     window.location.reload()
   }
 
-
   return (
     <Container>
       <Box>
@@ -70,7 +69,7 @@ export const ConfigModal = () => {
             </div>
           </Inputs>
           <Inputs>
-            <p>list background</p>
+            <p>second background</p>
             <hr />
             <div>
               <p>glass</p>

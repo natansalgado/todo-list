@@ -88,6 +88,7 @@ export const Inputs = styled.div`
       max-width: 145px;
       border-radius: 20px;
       background: ${colors.glass};
+      cursor: pointer;
 
       &::-webkit-slider-thumb {
         -webkit-appearance: none;

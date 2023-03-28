@@ -28,6 +28,12 @@ export const NewItemModal = () => {
     }
   }
 
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      addNewItemFunction(0)
+    }
+  }
+
   return (
     <Container>
       <Box>
@@ -39,7 +45,7 @@ export const NewItemModal = () => {
           <FaPlus size={20} />
         </header>
         <Body className='mt-10 mb-6 px-4'>
-          <input type="text" value={value} onChange={handleNewItem} />
+          <input onKeyDown={handleKeyDown} autoFocus type="text" value={value} onChange={handleNewItem} />
         </Body>
         <Buttons>
           {
